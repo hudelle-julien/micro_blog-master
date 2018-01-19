@@ -1,10 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Host :  127.0.0.1
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  ven. 19 jan. 2018 à 22:54
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -14,41 +19,51 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database :  `micro_blog`
+-- Base de données :  `micro_blog`
 --
 
 -- --------------------------------------------------------
 
 --
--- `messages` Table
+-- Structure de la table `messages`
 --
 
-CREATE TABLE `messages` (
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
   `id` int(11) NOT NULL,
   `contenu` text NOT NULL,
   `date` int(100) NOT NULL,
   `id_utilisateurs` int(11) NOT NULL,
-  `votes` int(11),
-  `derniereIP` varchar(20) 
+  `votes` int(11) DEFAULT NULL,
+  `derniereIP` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_utilisateurs` (`id_utilisateurs`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- `messages` Table Content
+-- Déchargement des données de la table `messages`
 --
 
-INSERT INTO `messages` (`id`, `contenu`, `date`, `id_utilisateurs`) VALUES
-(1, 'Test', 1488484370, 1)
-(2, 'Hudelle', 1484664281, 1),
-(3, 'Chretien', 1484664180, 2),
-(4, 'Test 12', 1484663939, 1);
+INSERT INTO `messages` (`id`, `contenu`, `date`, `id_utilisateurs`, `votes`, `derniereIP`) VALUES
+(1329, 'Ce qui est plutÃ´t Ã©trange...', 1516401912, 1253, NULL, NULL),
+(1065, 'Il me rajoute un \'s\' Ã  la fin de mes messages', 1516401903, 1253, NULL, NULL),
+(256, 'Bon Ã§a a l\'air de fonctionner', 1516401881, 1253, NULL, NULL),
+(70, 'Test', 1516401868, 1253, NULL, NULL),
+(1392, 'Test3', 1516401973, 294, NULL, NULL),
+(66, 'Bon Ã§a va je pense', 1516401980, 294, NULL, NULL),
+(1033, 'La pagination a l\'air correcte', 1516401992, 294, NULL, NULL),
+(246, 'Btw, vous attardez pas sur les dates, j\'ai tout effacÃ© avant de retester', 1516402011, 294, NULL, NULL),
+(1775, 'Encore un message pour une troisiÃ¨me page', 1516402024, 294, NULL, NULL),
+(891, 'Parfait', 1516402031, 294, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- `utilisateurs` Table
+-- Structure de la table `utilisateurs`
 --
 
-CREATE TABLE `utilisateurs` (
+DROP TABLE IF EXISTS `utilisateurs`;
+CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `id` int(11) NOT NULL,
   `nom` varchar(60) NOT NULL,
   `prenom` varchar(60) NOT NULL,
@@ -59,30 +74,15 @@ CREATE TABLE `utilisateurs` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Index pour les tables exportées
+-- Déchargement des données de la table `utilisateurs`
 --
 
---
--- `messages` keys
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_utilisateurs` (`id_utilisateurs`);
-
---
--- `utilisateurs` keys
---
-ALTER TABLE `utilisateurs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `pseudo` (`pseudo`),
-  ADD UNIQUE KEY `email` (`email`);
-
-ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
-
-ALTER TABLE `utilisateurs`
-
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `email`, `mdp`, `pseudo`, `sid`) VALUES
+(294, 'DelaCancreluche', 'Jean-Jacques', 'cra@gmail.com', '51f7b4150aece7d0f6d45d8f00b8184e', 'Craaaaa', 'bb98ff12cf774d2a5c295ea6606a47b5'),
+(454, 'Lannoy', 'JP', 'jp.lannoy@nilsine.fr', '9165a3ad1267dbcc6d6e00f03b7030a8', 'JPL', '3ebefb07785b0483823ccd807fac5445'),
+(595, 'Chretien', 'Simon', 'sc@gmail.com', 'a671fa80a14d868c808f6f4c6f3b5783', 'SC', NULL),
+(1253, 'Hudelle', 'Julien', 'julien.hudelle@gmail.com', '04d51b1fa455c1df8c3cbff04a5daafa', 'Jenova', '531c882a6e37a7b10c6b0fb532c3a2e7');
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
